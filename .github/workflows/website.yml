@@ -1,0 +1,19 @@
+name: Website Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  website:
+    uses: Imalipay-org/.github/.github/workflows/frontend_pipeline.yml@main
+    with:
+      configure_environment: production
+      configure_namespace: production
+      repository_name: ${{ github.event.repository.name }}
+      partner: ${{ github.event.repository.name }}
+    secrets:
+      aws_configured_region: ${{ secrets.PRODUCTION_REGION }}
+      aws_configured_key_id: ${{ secrets.PRODUCTION_ACCESS_KEY_ID }}
+      aws_configured_key: ${{ secrets.PRODUCTION_SECRET_ACCESS_KEY }}

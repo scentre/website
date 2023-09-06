@@ -1,0 +1,3314 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Demo Collection",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/TECH_47/ImaliPay/1.0.0"
+  }, {
+    "url" : "https://auth.sandbox.imalipay.com"
+  }, {
+    "url" : "https://api.sandbox.imalipay.com"
+  }, {
+    "url" : "https://api.imalipay.com"
+  } ],
+  "components" : {
+    "securitySchemes" : {
+      "basicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      },
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer"
+      }
+    }
+  },
+  "security" : [ {
+    "bearerAuth" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Authorization"
+  }, {
+    "name" : "Registartion/Onboarding"
+  }, {
+    "name" : "wallets"
+  }, {
+    "name" : "wallets > accounts"
+  }, {
+    "name" : "wallets > transactions"
+  }, {
+    "name" : "wallets > transactions > Kenya"
+  }, {
+    "name" : "wallets > transactions > Nigeria"
+  }, {
+    "name" : "payments"
+  }, {
+    "name" : "payments > payouts"
+  }, {
+    "name" : "payments > payouts > Nigeria"
+  }, {
+    "name" : "payments > payouts > Kenya"
+  }, {
+    "name" : "payments > collections"
+  }, {
+    "name" : "payments > collections > kenya"
+  }, {
+    "name" : "payments > collections > nigeria"
+  }, {
+    "name" : "products"
+  }, {
+    "name" : "products > BNPL"
+  }, {
+    "name" : "products > BNPL > Loans"
+  }, {
+    "name" : "products > BNPL > Loans > Vouchers"
+  }, {
+    "name" : "products > BNPL > Fuel"
+  }, {
+    "name" : "products > BNPL > Sparepart"
+  }, {
+    "name" : "products > BNPL > Fuel For All"
+  }, {
+    "name" : "messaging"
+  }, {
+    "name" : "messaging > whatsapp"
+  }, {
+    "name" : "messaging > sms"
+  }, {
+    "name" : "messaging > general"
+  }, {
+    "name" : "messaging > email"
+  } ],
+  "paths" : {
+    "/auth/realms/sandbox/protocol/openid-connect/token" : {
+      "post" : {
+        "tags" : [ "Authorization" ],
+        "summary" : "generate token",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "grant_type" : {
+                    "type" : "string",
+                    "example" : "client_credentials"
+                  },
+                  "clientId" : {
+                    "type" : "string",
+                    "example" : "xxxx"
+                  },
+                  "clientSecret" : {
+                    "type" : "string",
+                    "example" : "xxxx"
+                  },
+                  "tenantID" : {
+                    "type" : "string",
+                    "example" : "xxx"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Basic"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/x-www-form-urlencoded"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/{countryCode}/onboarding/{msisdn}/flex" : {
+      "post" : {
+        "tags" : [ "Registartion/Onboarding" ],
+        "summary" : "register customer",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"kyc\\\": []\\r\\n    }\""
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/profiles/search/all-info" : {
+      "get" : {
+        "tags" : [ "Registartion/Onboarding" ],
+        "summary" : "customer profile search",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "msisdn",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "234000000000"
+        }, {
+          "name" : "countryCode",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "NG"
+        }, {
+          "name" : "fromDateTime",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2022-05-05T04%3A42%3A17.552599Z"
+        }, {
+          "name" : "toDateTime",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2023-06-06T04%3A42%3A17.552599Z"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/{countryCode}/kyc/customer-id/{customerId}/profile" : {
+      "get" : {
+        "tags" : [ "Registartion/Onboarding" ],
+        "summary" : "search for a customer profile by customerId",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "customerId",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/{countryCode}/kyc/{msisdn}/profile" : {
+      "get" : {
+        "tags" : [ "Registartion/Onboarding" ],
+        "summary" : "get customer profile by phone",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/profile/search" : {
+      "get" : {
+        "tags" : [ "Registartion/Onboarding" ],
+        "summary" : "customers profile search with params",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "countryCode",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "KE"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "createdAt,asc"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/{countryCode}/profile/customers/{customerId}/account" : {
+      "post" : {
+        "tags" : [ "Registartion/Onboarding" ],
+        "summary" : "create customer account",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"customerAccountType\\\": \\\"BNPL\\\"\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "customerId",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/wallet/account/search" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "account number search",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/{walletNumber}/balance" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "get account balance",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "walletNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/customer/externalAccountsByMsisdn/{msisdn}" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "get external account by msidn",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/{walletNumber}/deactivate" : {
+      "post" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "deactivate wallet account",
+        "requestBody" : {
+          "content" : { }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "walletNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/{walletNumber}/close" : {
+      "delete" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "close wallet account",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "walletNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/customers/0.0.1/{countryCode}/profile/customers/1579c918-50b6-4079-9782-8c2358c0f2fe/account" : {
+      "post" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "create wallet for a customer by type",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"customerAccountType\\\": \\\"CURRENT\\\" //CURRENT, SAVINGS\\r\\n}\\r\\n\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "68b1517a-0c7c-4783-970c-8ea9f010ca25"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Wed, 19 Apr 2023 08:45:43 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "created customer accounts",
+                  "data" : [ ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/bank" : {
+      "post" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "generate providus virtual bank accounts",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"accountName\\\": \\\"test account \\\",\\r\\n    \\\"accountType\\\": \\\"ASSET\\\",\\r\\n    \\\"currencyCode\\\": \\\"NGN\\\",\\r\\n    \\\"customerEmail\\\":\\\"test@gmail.com\\\",\\r\\n    \\\"customerFullName\\\": \\\"test user\\\",\\r\\n    \\\"customerId\\\": \\\"1579c918-50b6-4079-9782-8c2358c0f2fe\\\",\\r\\n    \\\"customerIdNumber\\\": \\\"2349076581899\\\",\\r\\n    \\\"internalAccountNumber\\\":\\\"000000049097\\\"\\r\\n}\\r\\n\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/linked/accounts/all" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "get all linked accounts",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/{walletNumber}/activate" : {
+      "post" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "activate account",
+        "requestBody" : {
+          "content" : { }
+        },
+        "parameters" : [ {
+          "name" : "walletNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/customer/{externalAccountNumber}" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "get external accounts by customer id",
+        "parameters" : [ {
+          "name" : "externalAccountNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/{internalWalletNumber}/external" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "get external accounts by internal account number",
+        "parameters" : [ {
+          "name" : "internalWalletNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account/{internalWalletNumber}/entries" : {
+      "get" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "get individual account entries by account number",
+        "parameters" : [ {
+          "name" : "internalWalletNumber",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "createdAt,desc"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/account" : {
+      "post" : {
+        "tags" : [ "wallets > accounts" ],
+        "summary" : "create wallet account",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"customerId\\\": \\\"123e4567-e89b-12d3-a456-426614174000\\\",\\r\\n    \\\"accountType\\\": \\\"LIABILITY\\\",\\r\\n    \\\"accountName\\\": \\\"COLLECTION_KE\\\",\\r\\n    \\\"currencyCode\\\": \\\"KES\\\"\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "8980a251-89c8-43f1-9df6-3506f7d51cbe"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Thu, 04 May 2023 06:26:23 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "account created successfully",
+                  "data" : [ {
+                    "accountName" : "MASTER_KE",
+                    "accountNumber" : "000000050014",
+                    "currency" : "KES"
+                  } ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/transaction" : {
+      "post" : {
+        "tags" : [ "wallets > transactions > Kenya" ],
+        "summary" : "create a wallet transaction",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"externalTransactionId\\\": \\\"{{$guid}}\\\",\\r\\n    \\\"description\\\": \\\"testing transaction creation\\\",\\r\\n    \\\"externalPostedAt\\\": \\\"2023-04-13T12:20:53.311Z\\\",\\r\\n    \\\"entries\\\": [\\r\\n        {\\r\\n            \\\"amount\\\": 1,\\r\\n            \\\"accountNumber\\\": \\\"000000050014\\\",\\r\\n            \\\"journalEntryType\\\": \\\"CREDIT\\\",\\r\\n            \\\"currencyCode\\\": \\\"KES\\\",\\r\\n            \\\"description\\\": \\\"This is a test credit entry for a demo\\\"\\r\\n        },\\r\\n        {\\r\\n            \\\"amount\\\": 1,\\r\\n            \\\"accountNumber\\\": \\\"000000046554\\\",\\r\\n            \\\"journalEntryType\\\": \\\"DEBIT\\\",\\r\\n            \\\"currencyCode\\\": \\\"KES\\\",\\r\\n            \\\"description\\\": \\\"This is a test debit entry for a demo\\\"\\r\\n        }\\r\\n    ]\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/ng/wallet/transaction" : {
+      "post" : {
+        "tags" : [ "wallets > transactions > Nigeria" ],
+        "summary" : "create a wallet transaction",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"externalTransactionId\\\": \\\"{{$guid}}\\\",\\r\\n    \\\"description\\\": \\\"testing transaction creation\\\",\\r\\n    \\\"externalPostedAt\\\": \\\"2023-04-13T12:20:53.311Z\\\",\\r\\n    \\\"entries\\\": [\\r\\n        {\\r\\n            \\\"amount\\\": 100,\\r\\n            \\\"accountNumber\\\": \\\"000000049100\\\",\\r\\n            \\\"journalEntryType\\\": \\\"CREDIT\\\",\\r\\n            \\\"currencyCode\\\": \\\"NGN\\\",\\r\\n            \\\"description\\\": \\\"This is a test credit entry for jiffix demo\\\"\\r\\n        },\\r\\n        {\\r\\n            \\\"amount\\\": 100,\\r\\n            \\\"accountNumber\\\": \\\"000000049096\\\",\\r\\n            \\\"journalEntryType\\\": \\\"DEBIT\\\",\\r\\n            \\\"currencyCode\\\": \\\"NGN\\\",\\r\\n            \\\"description\\\": \\\"This is a test debit entry for jiffix demo\\\"\\r\\n        }\\r\\n    ]\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "wallets > transactions" ],
+        "summary" : "all wallet transactions in detail",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "startDateTime",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2023-03-17T12:40:58.406986Z"
+        }, {
+          "name" : "endDateTime",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2023-03-17T12:40:58.406986Z"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "createdAt,desc"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/transaction/search" : {
+      "get" : {
+        "tags" : [ "wallets > transactions" ],
+        "summary" : "wallet transactions search",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "0"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "50"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "transactionId"
+        }, {
+          "name" : "startDateTime",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2023-03-17T12:40:58.406986Z"
+        }, {
+          "name" : "endDateTime",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2023-06-17T12:40:58.406986Z"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/{countryCode}/wallet/transaction/2/reverse" : {
+      "post" : {
+        "tags" : [ "wallets > transactions" ],
+        "summary" : "reverse a transaction",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"externalTransactionId\\\": \\\"c4e1440c-6323-4ff7-9a5c-003241a4e1f5\\\",\\r\\n    \\\"externalPostedAt\\\": \\\"2014-04-23T04:30:45.123Z\\\",\\r\\n    \\\"description\\\": \\\"testing transaction reversal\\\"\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ledgers/0.0.1/ng/wallet/transaction/wallet-report" : {
+      "get" : {
+        "tags" : [ "wallets > transactions" ],
+        "summary" : "wallet report",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/{countryCode}/payments/payout" : {
+      "post" : {
+        "tags" : [ "payments > payouts > Nigeria" ],
+        "summary" : "initiate payouts",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"amount\\\": \\\"10\\\",\\r\\n    \\\"currency\\\": \\\"NGN\\\",\\r\\n    \\\"clientReference\\\": \\\"{{$guid}}\\\",\\r\\n    \\\"paymentDate\\\": \\\"{{$isoTimestamp}}\\\",\\r\\n    \\\"accountNumber\\\": \\\"0101076859\\\",\\r\\n    \\\"accountInstitution\\\": \\\"ACCESS_BANK\\\",\\r\\n    \\\"paymentMode\\\": \\\"BANK_TRANSFER\\\",\\r\\n    \\\"description\\\": \\\"Payout From Master wallet to 0101076859\\\",\\r\\n    \\\"imaliPayDisbursmentAccount\\\": \\\"000000049100\\\",\\r\\n    \\\"extraData\\\": {\\r\\n        \\\"emailRecipient\\\": \\\"\\\"\\r\\n    }\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "092631dc-04a5-4811-aa73-ce4360a1d933"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Wed, 10 May 2023 13:20:31 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "Payout Successfully Submitted ",
+                  "data" : [ {
+                    "paymentReference" : "8b0987d9-74ac-4dd7-8ee3-d23e83d653d2",
+                    "status" : "SUBMITTED"
+                  } ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/ke/payments/payout" : {
+      "post" : {
+        "tags" : [ "payments > payouts > Kenya" ],
+        "summary" : "initiate payouts sandbox",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"amount\\\": \\\"1\\\",\\r\\n    \\\"currency\\\": \\\"KES\\\",\\r\\n    \\\"clientReference\\\": \\\"{{$guid}}\\\",\\r\\n    \\\"paymentDate\\\": \\\"{{$isoTimestamp}}\\\",\\r\\n    \\\"accountNumber\\\": \\\"254705881346\\\",\\r\\n    \\\"accountInstitution\\\": \\\"MPESA\\\",\\r\\n    \\\"paymentMode\\\": \\\"MOBILE_MONEY\\\",\\r\\n    \\\"description\\\": \\\"Payout to 254705881346\\\",\\r\\n    \\\"imaliPayDisbursmentAccount\\\": \\\"000000046554\\\",\\r\\n    \\\"extraData\\\": {\\r\\n    }\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "4aa03892-2ecd-409e-9860-c2a0b3476c56"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Wed, 10 May 2023 13:20:51 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "Payout Successfully Submitted ",
+                  "data" : [ {
+                    "paymentReference" : "9c917ec9-f079-4db2-9d6d-cc56516d5cbb",
+                    "status" : "SUBMITTED"
+                  } ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/ke/payments" : {
+      "post" : {
+        "tags" : [ "payments > collections > kenya" ],
+        "summary" : "initiate payments (usually leads to funding a wallet)",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "amount" : "100",
+                  "clientReference" : "{{$guid}}",
+                  "paymentDate" : "{{$isoTimestamp}}",
+                  "description" : "this will fund a wallet through an stk push ",
+                  "accountNumber" : "254705881346",
+                  "currency" : "KES",
+                  "paymentMode" : "MOBILE_MONEY",
+                  "paymentProvider" : "MPESA",
+                  "extraData" : {
+                    "ImaliPayCollectionAccount" : "000000050014"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "0d760863-eac7-48b5-b323-26e624fbefaa"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Wed, 10 May 2023 13:21:20 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "received request to initiate payment",
+                  "data" : [ {
+                    "paymentReference" : "f9091f5f-5f94-455f-b55b-4314f6e895da",
+                    "status" : "SUBMITTED"
+                  } ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/ng/payments" : {
+      "post" : {
+        "tags" : [ "payments > collections > nigeria" ],
+        "summary" : "initiate payments (usually leads to funding a wallet)",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "amount" : "10",
+                  "clientReference" : "{{$guid}}",
+                  "paymentDate" : "{{$isoTimestamp}}",
+                  "description" : "this will fund a wallet through a bank transfer ",
+                  "accountNumber" : "9978874945",
+                  "currency" : "NGN",
+                  "paymentMode" : "BANK_TRANSFER",
+                  "paymentProvider" : "PROVIDUS",
+                  "extraData" : {
+                    "ImaliPayCollectionAccount" : "000000049100"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/payments/providus/callback" : {
+      "post" : {
+        "tags" : [ "payments > collections > nigeria" ],
+        "summary" : "simulate payment made via bank",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"sessionId\\\":\\\"0000046782222805345648005062266656442357859001\\\",\\r\\n    \\\"accountNumber\\\":\\\"9979361750\\\",\\r\\n    \\\"tranRemarks\\\":\\\"FROM UBA/ CASAFINA CREDIT-EASY LOAN-NIP/SEYI OLUFEMI/CASAFINA CAP/0000042103015656180548005069266636\\\",\\r\\n    \\\"transactionAmount\\\":\\\"2000\\\",\\r\\n    \\\"settledAmount\\\":\\\"2000\\\",\\r\\n    \\\"feeAmount\\\":\\\"0\\\",\\r\\n    \\\"vatAmount\\\":\\\"0\\\",\\r\\n    \\\"currency\\\":\\\"NGN\\\",\\r\\n    \\\"initiationTranRef\\\":\\\"uuf29d\\\",\\r\\n    \\\"settlementId\\\":\\\"20221171273769086000020020\\\",\\r\\n    \\\"sourceAccountNumber\\\":\\\"2093566866\\\",\\r\\n    \\\"sourceAccountName\\\":\\\"CASAFINA CREDIT-EASY LOAN\\\",\\r\\n    \\\"sourceBankName\\\":\\\"UNITED BANK FOR AFRICA\\\",\\r\\n    \\\"channelId\\\":\\\"1\\\",\\r\\n    \\\"tranDateTime\\\":\\\"2021-03-01 18:06:20\\\"\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Signature",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "be09bee831cf262226b426e39bd1092af84dc63076d4174fac78a2261f9a3d6e59744983b8326b69cdf2963fe314dfc89635cfa37a40596508dd6eaab09402c7"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/payments/search" : {
+      "get" : {
+        "tags" : [ "payments" ],
+        "summary" : "payments search",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "createdAt,desc"
+        }, {
+          "name" : "amount",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "1"
+        }, {
+          "name" : "paymentProviderCode",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "MPESA"
+        }, {
+          "name" : "paymentMethodCode",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "MOBILE_MONEY"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "SUBMITTED"
+        }, {
+          "name" : "currencyCode",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "KES"
+        }, {
+          "name" : "paymentCategory",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "PAYOUTS"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/find-all/payments/customer/{tenantId}" : {
+      "get" : {
+        "tags" : [ "payments" ],
+        "summary" : "get payments by customer id",
+        "parameters" : [ {
+          "name" : "tenantId",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "sortValue",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "status"
+        }, {
+          "name" : "orderBy",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "ASC"
+        }, {
+          "name" : "pageNo",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "0"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "2"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/payments/{paymentId}" : {
+      "get" : {
+        "tags" : [ "payments" ],
+        "summary" : "get payments by id",
+        "parameters" : [ {
+          "name" : "paymentId",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/{countryCode}/payments/summary" : {
+      "get" : {
+        "tags" : [ "payments" ],
+        "summary" : "payments summary",
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel/validation/voucher" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Loans > Vouchers" ],
+        "summary" : "Validate Voucher",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "msisdn" : "2348097654325",
+                  "voucher" : "JWTXP1E18E"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "7e61c55e-e291-4141-8433-14349f2bbf2d"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Thu, 02 Mar 2023 05:56:00 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "Success",
+                  "voucherDetails" : {
+                    "msisdn" : "2348097654325",
+                    "valid" : false,
+                    "customerName" : "Mimi Abdulsalam",
+                    "amount" : 100000
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/redeem/voucher" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Loans > Vouchers" ],
+        "summary" : "Redeem  Voucher",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "voucher" : "JWTXP1E18E",
+                  "redeemedBy" : "tester"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/cancel/voucher" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Loans > Vouchers" ],
+        "summary" : "Cancel Voucher",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "voucher" : "X8FCO3JTZ3",
+                  "rejectedBy" : "Freeman"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/invoice/unredeemed/254705881346" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Loans > Vouchers" ],
+        "summary" : "get list of unredeemed vouchers",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/loan/{msisdn}/balance" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Loans" ],
+        "summary" : "Get Loan Balance",
+        "description" : "This endpoint return the loan balance of a customer with an active loan invoice.\n\n**Method** - _GET_\n\n**Path Variable**\n> * *msisdn* - customer mobile number",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "example" : "254705881346"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/loan/{msisdn}/history" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Loans" ],
+        "summary" : "Get Loan History",
+        "description" : "This endpoint return the loan balance of a customer with an active loan invoice.\n\n**Method** - _GET_\n\n**Path Variable**\n> * *msisdn* - customer mobile number",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "example" : "254705881346"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/loan/{msisdn}/repayment-schedule/type/summary" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Loans" ],
+        "summary" : "Get Repayment Schedule",
+        "description" : "This endpoint returns the repayment schedule of a customer.\n\n**Method** - _GET_\n\n**Path Variable**\n> * *msisdn* - customer mobile number\n> * *scheduleType* - type of repayment schedule you want to enquire about. Options available are:\n>> * *Full* - returns both paid and servicing schedule for the loan\n>> * *Summary* - returns just the schedule for all reamining servicing date for the loan",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "example" : "254769234447"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/{msisdn}/history" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Loans" ],
+        "summary" : "Get All Product History",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "example" : "254705881346"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/loan/{msisdn}/active" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Loans" ],
+        "summary" : "Get Active Loans",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "example" : "254712592109"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel/request/init" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Fuel" ],
+        "summary" : "Fuel BNPL Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "msisdn" : "254712592109",
+                  "serviceCode" : "KE-FUEL-500"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "4462f0c5-fa70-4c47-a0d4-43f943b06d4d"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Tue, 09 Nov 2021 20:23:56 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "9001",
+                  "statusMessage" : "Customer record with 23473291510 not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel/confirm/request" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Fuel" ],
+        "summary" : "Confirm Fuel BNPL Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "transactionId" : "IMALI236132449156300",
+                  "msisdn" : "254723452006",
+                  "pin" : "123456",
+                  "extraData" : {
+                    "tillNumber" : "900716"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/spareparts/request/init" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Sparepart" ],
+        "summary" : "Request sparepart",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "msisdn" : "2349076581859",
+                  "serviceCode" : "NG-TYRES",
+                  "extraData" : {
+                    "amount" : "1000",
+                    "frequency" : "W",
+                    "tenor" : "2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/spareparts/confirm/request" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Sparepart" ],
+        "summary" : "Confirm Sparepart Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "transactionId" : "IMALI613944528747000",
+                  "msisdn" : "2349076581859",
+                  "pin" : "1234"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/spareparts/spareparts-ke/request/init" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Sparepart" ],
+        "summary" : "Spare Part BNPL Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "msisdn" : "254769234447",
+                  "serviceCode" : "KE-BODA-TYRES"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "4462f0c5-fa70-4c47-a0d4-43f943b06d4d"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Tue, 09 Nov 2021 20:23:56 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "9001",
+                  "statusMessage" : "Customer record with 23473291510 not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/{countryCode}/fuel-for-all/request/init" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "Initiate Fuel For All Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "serviceCode" : "KE-FUEL-FOR-ALL",
+                  "msisdn" : "254705881344",
+                  "amount" : "2"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "countryCode",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "example" : "ke"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel-for-all/request/summary/generate" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "Generate Fuel For All Summary",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "transactionId" : "IMALI196264775610160",
+                  "tillNumber" : "167577"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel-for-all/request/confirm" : {
+      "post" : {
+        "tags" : [ "products > BNPL" ],
+        "summary" : "Confirm BNPL Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "transactionId" : "IMALI347472297322000",
+                  "msisdn" : "254705881346",
+                  "pin" : "123456",
+                  "tillNumber" : "900716",
+                  "extraData" : {
+                    "tillNumber" : "900716"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel-for-all/{msisdn}/pending/request" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "Get Pending Fuel For All Request",
+        "parameters" : [ {
+          "name" : "msisdn",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/ke/auth/fuel/request" : {
+      "post" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "fuel for all approve/disapprove",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\n    \\\"transactionId\\\": \\\"IMALI62023271319000\\\",\\n    \\\"action\\\": \\\"declined\\\",\\n    \\\"approvedAmount\\\": \\\"1\\\",\\n    \\\"approvedBy\\\": \\\"nelly\\\"\\n}\""
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        }, {
+          "name" : "Cookie",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSESSIONID=731BA22200292C2A7BF886B13C11D707"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/invoice/IMALI228114644339200/details" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "Get fuel for all approve/disapprove",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/payment/proof/all" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "get all proofs",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/fuel/request/list" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "get all requests",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "status",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "approved"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/payments/0.0.1/payment/proof/all" : {
+      "get" : {
+        "tags" : [ "products > BNPL > Fuel For All" ],
+        "summary" : "get all uploaded proofs",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "0"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/exam/request/init" : {
+      "post" : {
+        "tags" : [ "products > BNPL" ],
+        "summary" : "BNPL Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "msisdn" : "2348092710019",
+                  "serviceCode" : "NG-IELTS-EXAM",
+                  "extraData" : {
+                    "amount" : "100",
+                    "frequency" : "D",
+                    "tenor" : "2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "4462f0c5-fa70-4c47-a0d4-43f943b06d4d"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Tue, 09 Nov 2021 20:23:56 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "9001",
+                  "statusMessage" : "Customer record with 23473291510 not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/submit/{serviceCategory}/request" : {
+      "post" : {
+        "tags" : [ "products > BNPL" ],
+        "summary" : "Submit BNPL Request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "msisdn" : "2348092710019",
+                  "serviceCode" : "NG-SAMSUNG-A02"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "serviceCategory",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/invoice/{transactionId}/details" : {
+      "get" : {
+        "tags" : [ "products" ],
+        "summary" : "Retrieve Invoice Details",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "transactionId",
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "example" : "IMALI196424372619900"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/products/0.0.1/products/api/submit/VENDOR-LAPTOPS/request" : {
+      "post" : {
+        "tags" : [ "default" ],
+        "summary" : "https://api.sandbox.imalipay.com/products/0.0.1/products/api/submit/VENDOR-LAPTOPS/request",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"msisdn\\\": \\\"2349076581859\\\",\\r\\n    \\\"serviceCode\\\": \\\"NG-DREAMWORKS-ELECTRONICS\\\",\\r\\n    \\\"amount\\\": 10000,\\r\\n    \\\"extraData\\\": {\\r\\n        \\\"createdBy\\\": \\\"ip\\\",\\r\\n        \\\"tenor\\\": \\\"2\\\",\\r\\n        \\\"frequency\\\": \\\"D\\\",\\r\\n        \\\"accountNumber\\\": \\\"000000050164\\\"\\r\\n    }\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "b439357a-7de8-4595-833f-f1a3b95b46ff"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Wed, 17 May 2023 15:21:13 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "Requested Operation successful",
+                  "summary" : {
+                    "msisdn" : "2349076581859",
+                    "amount" : 10000,
+                    "transactionId" : "IMALI137211297758500",
+                    "service" : "VENDOR-LAPTOPS",
+                    "dateTime" : "19 May, 2023",
+                    "interestRate" : "0.00%",
+                    "loanTenure" : "2 Days",
+                    "cost" : "10000.0",
+                    "totalRepayment" : "10000.000",
+                    "voucher" : "VBMCSBQ3E4",
+                    "initialDeposit" : 0,
+                    "percentagePaid" : 0
+                  },
+                  "repaymentSchedule" : [ {
+                    "repaymentAmount" : 5000,
+                    "dueDate" : "May 18, 2023",
+                    "installment" : 1
+                  }, {
+                    "repaymentAmount" : 5000,
+                    "dueDate" : "May 19, 2023",
+                    "installment" : 2
+                  } ],
+                  "pageNumber" : 0,
+                  "totalPages" : 0,
+                  "totalElements" : 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messaging/0.0.1/ke/send/delivery-mode/whatsapp" : {
+      "post" : {
+        "tags" : [ "messaging > whatsapp" ],
+        "summary" : "send whatsapp location message",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "from" : "25400000000",
+                  "to" : "25470000000",
+                  "body" : "this is a test call",
+                  "extraData" : {
+                    "type" : "location",
+                    "latitude" : 53.2734,
+                    "longitude" : -7.77832031,
+                    "name" : "name",
+                    "address" : "where I stay"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "9c274369-1bc1-4d70-8732-cade2007b9cc"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Thu, 29 Jun 2023 14:59:54 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "message is being processed",
+                  "data" : [ ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messaging/0.0.1/za/send/delivery-mode/sms" : {
+      "post" : {
+        "tags" : [ "messaging > sms" ],
+        "summary" : "send sms message",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "from" : "ImaliPay",
+                  "to" : "27700000000",
+                  "body" : "this is a test api call"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "9e25be3e-c5a3-4d09-8876-3b3f02380e9b"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Thu, 29 Jun 2023 15:00:38 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "message is being processed",
+                  "data" : [ ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ng/search" : {
+      "get" : {
+        "tags" : [ "messaging > general" ],
+        "summary" : "search messages",
+        "parameters" : [ {
+          "name" : "to",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "254700000000"
+        }, {
+          "name" : "deliveryMode",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "createdAt,asc"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ke/delivery-mode" : {
+      "get" : {
+        "tags" : [ "messaging > general" ],
+        "summary" : "get delivery modes",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "fc743240-9f05-4cc9-b76b-2f57b7b7ac96"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "GET"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Thu, 29 Jun 2023 15:02:59 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "message is being processed",
+                  "data" : [ "EMAIL", "SMS", "WHATSAPP", "IN_APP", "BOT", "SLACK", "WEBHOOKS", "USSD" ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messaging/0.0.1/ke/send/delivery-mode/email" : {
+      "post" : {
+        "tags" : [ "messaging > email" ],
+        "summary" : "send email",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string",
+                "example" : "\"{\\r\\n    \\\"subject\\\": \\\"api call for  email tests\\\",\\r\\n    \\\"to\\\": [\\r\\n        {\\r\\n            \\\"name\\\": \\\"Name\\\",\\r\\n            \\\"email\\\": \\\"email@gmail.com\\\"\\r\\n        },\\r\\n        {\\r\\n            \\\"name\\\": \\\"Nelly\\\",\\r\\n            \\\"email\\\": \\\"email.address@mail.com\\\"\\r\\n        }\\r\\n    ],\\r\\n    \\\"cc\\\": [],\\r\\n    \\\"bcc\\\": [],\\r\\n    \\\"attachments\\\": [\\r\\n        {\\r\\n            \\\"url\\\": \\\"https://smarterco.de/assets/images/kamil_wozniak_small.jpg?v=2\\\",\\r\\n            \\\"name\\\": \\\"kamil_wozniak_small.jpg\\\"\\r\\n        }\\r\\n    ],\\r\\n    \\\"body\\\": \\\"this is a test api call for email with attachment\\\",\\r\\n    \\\"description\\\": \\\"email test api  call\\\",\\r\\n    \\\"metaData\\\": {}\\r\\n}\""
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "Content-Type",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer xxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "activityid" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "77be43c2-f388-4259-bfb9-534d0bf70270"
+                }
+              },
+              "Access-Control-Expose-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              },
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "*"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "POST"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction,apikey,Internal-Key,Authorization"
+                }
+              },
+              "Content-Type" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "application/json"
+                }
+              },
+              "Date" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Thu, 29 Jun 2023 15:32:15 GMT"
+                }
+              },
+              "Transfer-Encoding" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "chunked"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                },
+                "example" : {
+                  "statusCode" : "0000",
+                  "statusMessage" : "email is being processed",
+                  "data" : [ ],
+                  "errors" : [ ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
